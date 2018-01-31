@@ -50,5 +50,6 @@ class Sky(Sprite):
 
   
 
-
+class Asteroid(Sprite):
+    pass
      
