@@ -1,0 +1,35 @@
+[
+	{
+	"position": {"x":-3000, "y": -3000},
+	"name": "Earth"
+	},
+	{
+	"position": {"x": 3000, "y": -3000},
+	"name": "Mars"
+	},
+	{
+	"position": {"x": -12000, "y": -7000},
+	"name": "Jupiter"
+	},
+	{	
+	"position": {"x": 12000, "y": -5000},
+	"name": "Neptune"
+	},
+	{
+	"position": {"x": 20000, "y": -4000},
+	"name": "Venus"
+	},
+	{
+	"position": {"x": 1500, "y": 4000},
+	"name": "Mercury"
+	},
+	{
+	"position": {"x": 32000, "y": 8000},
+	"name": "Saturn"
+	},
+	{
+	"position": {"x": -120000, "y": 39000},
+	"name": "Uranus"
+	}
+
+]

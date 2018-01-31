@@ -1,0 +1,11 @@
+window    = None
+gui       = None
+scene     = None
+viewport  = None
+mode      = None
+fly_mode  = None
+dock_mode = None
+player    = None
+credits   = 5000
+cargo     = {}
+docks     = []
