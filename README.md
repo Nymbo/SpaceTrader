@@ -4,6 +4,7 @@ Repository for my game SpaceTrader written in python.
 ## Requirements
 
 The game requires Python 2.7 installed on your PC with addition of the PyGame library.
+After you installed use the command line, go to the game directory and run `python main.py`
 
 ## Game overview
 
