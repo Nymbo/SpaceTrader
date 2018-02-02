@@ -28,7 +28,24 @@ class Sprite:
         variables.surface.blit(self.image, (loc.x,loc.y))
 
 
+
+class AnimatedSprite(Sprite):
+    def __init__(self, tick, images):
+        self.tick = tick
+        self.images = images
+        self.frame = 0
+        self.time = 0
+
+    def update(self):
         
+        self.time += 1
+        if self.time % self.tick == 0:
+            self.frame += 1
+            if self.frame >= len(self.images):
+                self.frame = 0
+
+        self.image = self.images[self.frame]
+
 class Sky(Sprite):
 
     def __init__(self):
