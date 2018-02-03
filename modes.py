@@ -97,11 +97,7 @@ class FlyMode(Mode):
         x = 210
         y = 200
 
-        l1 = 150     # buy button
-        l2 = l1 + 40 # sell button
-        l3 = l2 + 40 # price
-        l4 = l3 + 60 # amount available
-        l5 = l4 + 70 # amount has
+        l5 = 290 # amount has
 
         dy = 50
         
@@ -147,7 +143,7 @@ class FlyMode(Mode):
 
         for asteroid in variables.asteroids:
             if asteroid.position.distance(variables.player.position) < 50:
-                variables.player.setSpeed(0.3)
+                variables.player.setSpeed(2)
 
     def draw(self):
         #Draw the navigation circle around the screen:
@@ -208,21 +204,56 @@ class DockMode(Mode, MouseListener):
 
         self.cargos = {}
 
-        font = pygame.font.Font("assets/LCD14.ttf",25)
+
 
         buy_icon  = assets.loadImage("assets/buy.png")
         sell_icon = assets.loadImage("assets/sell.png")
 
-        x = 210
-        y = 200
+        x = 170
+        y = 240
 
         l1 = 150     # buy button
         l2 = l1 + 40 # sell button
-        l3 = l2 + 40 # price
-        l4 = l3 + 60 # amount available
-        l5 = l4 + 70 # amount has
+        l3 = l2 + 60 # price
+        l4 = l3 + 70 # amount available
+        l5 = l4 + 80 # amount has
+
+        header_font = pygame.font.Font("assets/LCD14.ttf", 15)
+        
+        self.header_cargo_name = Text(header_font)
+        self.header_cargo_name.setText("Cargo:")
+        self.header_cargo_name.setPosition(x, y - 30)
+        gui.addWidget(self.header_cargo_name)
+
+        self.header_buy = Text(header_font)
+        self.header_buy.setText("Buy:")
+        self.header_buy.setPosition(x + l1, y - 30)
+        gui.addWidget(self.header_buy)
+        
+        self.header_sell = Text(header_font)
+        self.header_sell.setText("Sell:")
+        self.header_sell.setPosition(x + l2, y - 30)
+        gui.addWidget(self.header_sell)
+
+        self.header_price = Text(header_font)
+        self.header_price.setText("Price:")
+        self.header_price.setPosition(x + l3, y - 30)
+        gui.addWidget(self.header_price)
+
+        self.header_available = Text(header_font)
+        self.header_available.setText("Avail:")
+        self.header_available.setPosition(x + l4, y - 30)
+        gui.addWidget(self.header_available)
+
+        self.header_has = Text(header_font)
+        self.header_has.setText("Carrier:")
+        self.header_has.setPosition(x + l5, y - 30)
+        gui.addWidget(self.header_has)
+
 
         dy = 50
+
+        font = pygame.font.Font("assets/LCD14.ttf",25)
         
         for cargo_name, cargo_obj in dock.cargo.iteritems():
             self.cargos[cargo_name] = {}
