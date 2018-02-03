@@ -145,6 +145,10 @@ class FlyMode(Mode):
                 self.nearby_dock = dock
                 break
 
+        for asteroid in variables.asteroids:
+            if asteroid.position.distance(variables.player.position) < 50:
+                variables.player.setSpeed(0.3)
+
     def draw(self):
         #Draw the navigation circle around the screen:
         pygame.draw.circle(variables.surface, (200,200,200), (400,400), 350, 2)

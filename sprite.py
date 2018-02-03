@@ -73,8 +73,9 @@ class Asteroid(AnimatedSprite):
         frames = assets.loadAnim(directory, 0, 99)
         AnimatedSprite.__init__(self, 4, frames)
 
-        rand_x = random.randint(-100000, 100000)
-        rand_y = random.randint(-100000, 100000)
+        a, b = -100000,100000
+        rand_x = random.randint(a, b)
+        rand_y = random.randint(a, b)
         pos = Vector2(rand_x, rand_y)
         self.setPosition(pos)
 
