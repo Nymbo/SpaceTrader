@@ -4,16 +4,29 @@ import variables
 class Scene:
     def __init__(self):
         self.sprites = []
+        self.iterating = False
+        self.marked_for_removal = []
 
     def addSprite(self, sprite):
         self.sprites.append(sprite)
 
     def removeSprite(self, sprite):
-        self.sprites.remove(sprite)
+        if self.iterating:
+            self.marked_for_removal.append(sprite)
+        else:
+            self.sprites.remove(sprite)
 
     def update(self):
+        self.iterating = True
         for sprite in self.sprites:
             sprite.update()
+        self.iterating = False
+
+        for marked in self.marked_for_removal:
+            self.sprites.remove(marked)
+
+        del self.marked_for_removal[:]
+            
 
 class Viewport:
 

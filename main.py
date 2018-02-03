@@ -53,6 +53,8 @@ def main():
 
     createDocks()
 
+    createAsteroids()
+    
     initCargo()
     
     variables.scene.addSprite(Sprite(assets.loadImage("assets/dock.png")))
@@ -97,6 +99,14 @@ def initCargo():
     variables.cargo["oxygen"]   = Cargo(0, 0)
     variables.cargo["hydrogen"] = Cargo(0, 0)
     variables.cargo["titanium"] = Cargo(0, 0)
+
+
+def createAsteroids():
+    for i in range(0,40):
+        asteroid = Asteroid()
+        variables.scene.addSprite(asteroid)
+        variables.asteroids.append(asteroid)
+        
 
 def setMode(new_mode):
     variables.mode.disable()

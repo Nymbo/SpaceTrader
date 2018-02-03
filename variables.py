@@ -9,3 +9,4 @@ player    = None
 credits   = 5000
 cargo     = {}
 docks     = []
+asteroids = []

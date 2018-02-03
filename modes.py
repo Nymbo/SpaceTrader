@@ -161,7 +161,7 @@ class FlyMode(Mode):
             guide_pos = center_pos
 
             #Draw the guide to a planet:
-            pygame.draw.circle(variables.surface, (255,0,0), (int(guide_pos.x),int(guide_pos.y)), 4)
+            pygame.draw.circle(variables.surface, (255,255,255), (int(guide_pos.x),int(guide_pos.y)), 4)
 
             dist = int( variables.player.position.distance(dock.position))
             txt = font.render(dock.name + " " + str(dist), 1, (255,255,255))
@@ -173,6 +173,19 @@ class FlyMode(Mode):
             txt = font.render("Press \"D\" to enter " + self.nearby_dock.name + " spacedock.", 1, (255,255,255))
             variables.surface.blit(txt, (400, 770))
 
+        asteroids = variables.asteroids
+        for ast in asteroids:
+            to_vec = ast.position - variables.player.position
+            to_vec.normalize()
+            to_vec *= 300
+            center_pos = Vector2(400, 400)
+            center_pos += to_vec
+            guide_pos = center_pos
+
+            #Draw the guide to a asteroid:
+            pygame.draw.circle(variables.surface, (255,0,0), (int(guide_pos.x),int(guide_pos.y)), 4)
+
+            
 class DockMode(Mode, MouseListener):
 
     def __init__(self):
