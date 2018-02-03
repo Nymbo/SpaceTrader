@@ -83,7 +83,7 @@ class Asteroid(AnimatedSprite):
         vec_y = random.randint(-4,4)
         self.vector = Vector2(vec_x, vec_y)
 
-        t = random.randint(120,180)
+        t = random.randint(120,160)
         self.timeout = t
         self.ticks = 0
         
@@ -99,6 +99,6 @@ class Asteroid(AnimatedSprite):
             variables.asteroids.remove(self)
             new_asteroid = Asteroid()
             variables.scene.addSprite(new_asteroid)
-            varialbes.asteroids.append(new_asteroid)
+            variables.asteroids.append(new_asteroid)
             print "Respawning asteroid"
         
