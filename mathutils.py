@@ -57,11 +57,7 @@ class Vector2:
     
 if __name__ == "__main__":
     v1 = Vector2(0,1)
-    print v1.x, v1.y
     v1.rotate(45)
-    print v1.x , v1.y
     v2 = Vector2(1,1)
-    print v2.length()
     v2.normalize()
-    print v2.length()
-    
+

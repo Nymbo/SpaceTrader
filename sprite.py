@@ -1,5 +1,5 @@
 from mathutils import *
-import variables
+import globvars
 import pygame
 import assets
 import random
@@ -11,7 +11,7 @@ class Sprite:
         self.position = Vector2()
 
 
-    def update(self):
+    def update(self, clock):
         pass
 
     def getPosition(self):
@@ -21,29 +21,28 @@ class Sprite:
         self.position = position
     
     def draw(self):
-        loc = variables.viewport.project(self.position)
+        loc = globvars.viewport.project(self.position)
         loc.x = loc.x - self.image.get_width() / 2.0
         loc.y = loc.y - self.image.get_height() / 2.0
         
-        variables.surface.blit(self.image, (loc.x,loc.y))
+        globvars.surface.blit(self.image, (loc.x, loc.y))
 
 
 
 class AnimatedSprite(Sprite):
     def __init__(self, tick, images):
+        Sprite.__init__(self, images[0])
         self.tick = tick
         self.images = images
         self.frame = 0
         self.time = 0
 
-    def update(self):
-        
+    def update(self, clock):
         self.time += 1
         if self.time % self.tick == 0:
             self.frame += 1
             if self.frame >= len(self.images):
                 self.frame = 0
-
         self.image = self.images[self.frame]
 
 class Sky(Sprite):
@@ -63,42 +62,5 @@ class Sky(Sprite):
             pygame.draw.rect(img, (bright, bright, bright), (x, y,r,r))
 
     def draw(self):
-        variables.surface.blit(self.image, (0,0) )
+        globvars.surface.blit(self.image, (0, 0))
 
-
-class Asteroid(AnimatedSprite):
-    def __init__(self):
-        variation = random.randint(1,3)
-        directory = "assets/asteroid" + str(variation)
-        frames = assets.loadAnim(directory, 0, 99)
-        AnimatedSprite.__init__(self, 4, frames)
-
-        a, b = -100000,100000
-        rand_x = random.randint(a, b)
-        rand_y = random.randint(a, b)
-        pos = Vector2(rand_x, rand_y)
-        self.setPosition(pos)
-
-        vec_x = random.randint(-4,4)
-        vec_y = random.randint(-4,4)
-        self.vector = Vector2(vec_x, vec_y)
-
-        t = random.randint(120,160)
-        self.timeout = t
-        self.ticks = 0
-        
-    def update(self):
-        AnimatedSprite.update(self)
-        self.position = self.position + self.vector
-        self.ticks += 1
-        if self.ticks % 60 == 0:
-            self.timeout -= 1
-
-        if self.timeout == 0:
-            variables.scene.removeSprite(self)
-            variables.asteroids.remove(self)
-            new_asteroid = Asteroid()
-            variables.scene.addSprite(new_asteroid)
-            variables.asteroids.append(new_asteroid)
-            print "Respawning asteroid"
-        

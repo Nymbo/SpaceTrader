@@ -1,11 +1,13 @@
+from pygame.mixer import Sound
 from sprite import *
 
-class PlayerCarrier(Sprite):
+class Carrier(Sprite):
 
     def __init__(self):
         Sprite.__init__(self, None)
         self.setRotation(0)
         self.setSpeed(0)
+        self.thrusters_sound = Sound("assets/sounds/thrusters.ogg")
         self.setAccelerating(False)
         self.setDecelerating(False)
         self.setRotatingLeft(False)
@@ -21,22 +23,21 @@ class PlayerCarrier(Sprite):
         
         self.image = assets.loadImage(path)
 
-        rpath = str(self.rotation % 360)
-        rpath = rpath.zfill(4)
-        rpath = "assets/carrier/rockets/" + rpath + ".png"
-        rimage = assets.loadImage(rpath)
+        thruster_path = str(self.rotation % 360)
+        thruster_path = thruster_path.zfill(4)
+        thruster_path = "assets/carrier/thrusters/" + thruster_path + ".png"
+        thruster_image = assets.loadImage(thruster_path)
 
-        self.rockets_image = rimage
+        self.rockets_image = thruster_image
 
 
     def draw(self):
         Sprite.draw(self)
         if self.accelerating:
-            loc = variables.viewport.project(self.position)
+            loc = globvars.viewport.project(self.position)
             loc.x = loc.x - self.image.get_width() / 2.0
             loc.y = loc.y - self.image.get_height() / 2.0
-            
-            variables.surface.blit(self.rockets_image, (loc.x,loc.y))
+            globvars.surface.blit(self.rockets_image, (loc.x, loc.y))
 
     def getRotation(self):
         return self.rotation
@@ -50,8 +51,6 @@ class PlayerCarrier(Sprite):
     def getSpeed(self):
         return self.speed
 
-    def update(self):
-        pass
 
     def setRockets(self, state):
         self.rockets_visible = state
@@ -64,11 +63,19 @@ class PlayerCarrier(Sprite):
 
     def setAccelerating(self, acc):
         self.accelerating = acc
+        if acc:
+            self.thrusters_sound.play(-1)
+        else:
+            self.thrusters_sound.stop()
 
     def setDecelerating(self, dec):
         self.decelerating = dec
+        if dec:
+            self.thrusters_sound.play(-1)
+        else:
+            self.thrusters_sound.stop()
 
-    def update(self):
+    def update(self, clock):
         if self.rotating_left:
             rot = self.getRotation()
             rot -= 1
@@ -85,6 +92,8 @@ class PlayerCarrier(Sprite):
             speed = self.getSpeed()
             speed -= 0.2
             self.setSpeed(speed)
+
+
 
         rot = self.getRotation()
         fwd_vec = Vector2(0, -1)

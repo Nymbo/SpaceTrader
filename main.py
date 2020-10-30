@@ -1,117 +1,86 @@
-import pygame
-from   pygame.locals import *
-import assets
-import variables
-from screen    import *
-from modes     import *
-from sprite    import *
-from dock      import *
-from mathutils import *
-from dock      import *
-from carrier   import *
-from gui       import *
+from gui.Messenger import Messenger
+from screen import *
+from carrier import *
+from modes.dock_mode import *
+from modes.fly_mode import *
+from gui.cargo_panel import *
+from gui.gui import *
+
+from planets import *
 
 def main():
     pygame.init()
+    pygame.mixer.init()
 
-    width  = 800
-    height = 800
+    globvars.surface    = pygame.display.set_mode((800, 800))
+    globvars.gui        = Gui()
+    globvars.scene      = Scene()
+    globvars.viewport   = Viewport(800, 800);
 
-    variables.surface = pygame.display.set_mode((width, height))
+    globvars.player     = Carrier()
+    globvars.player.setPosition(Vector2(-3001, -3001))
 
-    variables.gui = Gui()
-    frame = Panel()
-    frame.setPosition(100,100)
-    frame.setSize(100,100)
-    #variables.gui.addWidget(frame)
-
-    btn = Button(assets.loadImage("assets/asteroid.png"))
-    #variables.gui.addWidget(btn)
-
-    credits_gauge = CreditsGauge()
-    credits_gauge.setPosition(20, 770)
-    variables.gui.addWidget(credits_gauge)
-    
-    variables.scene = Scene()
-    
-    variables.viewport = Viewport(width, height);
-
-    clock = pygame.time.Clock()
-
-    variables.fly_mode = FlyMode()
-    variables.mode = variables.fly_mode
-    variables.mode.enable()
-
-    variables.dock_mode = DockMode()
-
-    bg = pygame.Surface(variables.surface.get_size())
-    bg = bg.convert()
-    bg.fill((0,0,0))
+    initCargo()
 
     sky = Sky()
-    variables.scene.addSprite(sky)
-
-    createDocks()
-
+    globvars.scene.addSprite(sky)
+    createPlanetsWithDocks()
     createAsteroids()
-    
-    initCargo()
-    
-    variables.scene.addSprite(Sprite(assets.loadImage("assets/dock.png")))
+    globvars.scene.addSprite(globvars.player)
 
-    variables.player = PlayerCarrier()
-    variables.player.setPosition(Vector2(-3001,-3001))
-    variables.scene.addSprite(variables.player)
+    globvars.fly_mode   = FlyMode()
+    globvars.dock_mode  = DockMode()
+    globvars.mode = globvars.fly_mode
+    globvars.mode.enable()
 
+    credits_gauge       = CreditsGauge()
+    credits_gauge.setPosition(20, 770)
+    globvars.gui.addWidget(credits_gauge)
+
+    globvars.cargo_panel = CargoPanel()
+    globvars.messenger = Messenger()
+    for dock in globvars.docks:
+        dock.addListener(globvars.messenger)
+    globvars.gui.addWidget(globvars.messenger)
+
+    # Game loop:
+    clock = pygame.time.Clock()
     done = False
     while not done:
-
+        # Event dispatching:
         for event in pygame.event.get():
             if event.type == QUIT:
-                pygame.quit()
                 done = True
             else:
-                consumed = variables.gui.onEvent(event)
+                consumed = globvars.gui.onEvent(event)
                 if not consumed:
-                    variables.mode.onEvent(event)
+                    globvars.mode.onEvent(event)
 
-        variables.gui.update()
-        variables.scene.update()
-        variables.mode.update()
+        # Update:
+        globvars.gui.update(clock)
+        globvars.scene.update(clock)
+        globvars.mode.update()
 
-        variables.surface.blit(bg, (0,0))
-        variables.viewport.draw()
-        variables.mode.draw()
+        # Draw:
+        globvars.viewport.draw()
+        globvars.mode.draw()
+        globvars.gui.draw()
 
-        variables.gui.draw()
-        
+        # Delay and flip:
         clock.tick(60)
-        
         pygame.display.update()
 
 
-
 def initCargo():
-    variables.cargo["carbon"]   = Cargo(0, 0)
-    variables.cargo["selenium"] = Cargo(0, 0)
-    variables.cargo["uranium"]  = Cargo(0, 0)
-    variables.cargo["nitrogen"] = Cargo(0, 0)
-    variables.cargo["oxygen"]   = Cargo(0, 0)
-    variables.cargo["hydrogen"] = Cargo(0, 0)
-    variables.cargo["titanium"] = Cargo(0, 0)
+    globvars.cargos[CARGO_1_NAME] = Cargo(CARGO_1_NAME, 0, 0)
+    globvars.cargos[CARGO_2_NAME] = Cargo(CARGO_2_NAME, 0, 0)
+    globvars.cargos[CARGO_3_NAME] = Cargo(CARGO_3_NAME, 0, 0)
+    globvars.cargos[CARGO_4_NAME] = Cargo(CARGO_5_NAME, 0, 0)
+    globvars.cargos[CARGO_5_NAME] = Cargo(CARGO_4_NAME, 0, 0)
+    globvars.cargos[CARGO_6_NAME] = Cargo(CARGO_6_NAME, 0, 0)
+    globvars.cargos[CARGO_7_NAME] = Cargo(CARGO_7_NAME, 0, 0)
+    globvars.cargos[CARGO_8_NAME] = Cargo(CARGO_8_NAME, 0, 0)
 
-
-def createAsteroids():
-    for i in range(0,40):
-        asteroid = Asteroid()
-        variables.scene.addSprite(asteroid)
-        variables.asteroids.append(asteroid)
-        
-
-def setMode(new_mode):
-    variables.mode.disable()
-    new_mode.enable()
-    variables.mode = new_mode
 
 
      

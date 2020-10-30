@@ -1,0 +1,52 @@
+<?xml version="1.0"?>
+<project name="SpaceTrader">
+    <languages>
+        <language>C++</language>
+        <language>Java</language>
+        <language>Go</language>
+        <language>JavaScript</language>
+    </languages>
+    <counts>
+        <count timestamp="1580217811" is_refactor="0" all_lines="236" filled_lines="0" empty_lines="0"/>
+        <count timestamp="1580304211" is_refactor="0" all_lines="514" filled_lines="0" empty_lines="0"/>
+        <count timestamp="1580390611" is_refactor="0" all_lines="697" filled_lines="0" empty_lines="0"/>
+        <count timestamp="1580477011" is_refactor="0" all_lines="852" filled_lines="0" empty_lines="0"/>
+        <count timestamp="1580563411" is_refactor="0" all_lines="1157" filled_lines="0" empty_lines="0"/>
+        <count timestamp="1580649811" is_refactor="0" all_lines="1678" filled_lines="0" empty_lines="0"/>
+        <count timestamp="1580736211" is_refactor="0" all_lines="1624" filled_lines="0" empty_lines="0"/>
+        <count timestamp="1580822611" is_refactor="0" all_lines="1872" filled_lines="0" empty_lines="0"/>
+        <count timestamp="1580909011" is_refactor="0" all_lines="2331" filled_lines="0" empty_lines="0"/>
+        <count timestamp="1580995411" is_refactor="0" all_lines="2044" filled_lines="0" empty_lines="0"/>
+        <count timestamp="1581081811" is_refactor="0" all_lines="2493" filled_lines="0" empty_lines="0"/>
+        <count timestamp="1581168211" is_refactor="0" all_lines="2925" filled_lines="0" empty_lines="0"/>
+        <count timestamp="1581254611" is_refactor="0" all_lines="2691" filled_lines="0" empty_lines="0"/>
+        <count timestamp="1581341011" is_refactor="0" all_lines="3629" filled_lines="0" empty_lines="0"/>
+        <count timestamp="1581427411" is_refactor="0" all_lines="3068" filled_lines="0" empty_lines="0"/>
+        <count timestamp="1581513811" is_refactor="0" all_lines="3548" filled_lines="0" empty_lines="0"/>
+        <count timestamp="1581600211" is_refactor="0" all_lines="4181" filled_lines="0" empty_lines="0"/>
+        <count timestamp="1581686611" is_refactor="0" all_lines="4402" filled_lines="0" empty_lines="0"/>
+        <count timestamp="1581773011" is_refactor="0" all_lines="4698" filled_lines="0" empty_lines="0"/>
+        <count timestamp="1581859411" is_refactor="0" all_lines="5034" filled_lines="0" empty_lines="0"/>
+        <count timestamp="1581945811" is_refactor="0" all_lines="5827" filled_lines="0" empty_lines="0"/>
+        <count timestamp="1582032211" is_refactor="0" all_lines="5398" filled_lines="0" empty_lines="0"/>
+        <count timestamp="1582118611" is_refactor="0" all_lines="5752" filled_lines="0" empty_lines="0"/>
+        <count timestamp="1582205011" is_refactor="0" all_lines="6137" filled_lines="0" empty_lines="0"/>
+        <count timestamp="1582291411" is_refactor="0" all_lines="6556" filled_lines="0" empty_lines="0"/>
+        <count timestamp="1582550611" is_refactor="0" all_lines="6893" filled_lines="0" empty_lines="0"/>
+        <count timestamp="1582637011" is_refactor="0" all_lines="6323" filled_lines="0" empty_lines="0"/>
+        <count timestamp="1582723411" is_refactor="0" all_lines="6277" filled_lines="0" empty_lines="0"/>
+        <count timestamp="1582809811" is_refactor="0" all_lines="7259" filled_lines="0" empty_lines="0"/>
+        <count timestamp="1582896211" is_refactor="0" all_lines="7629" filled_lines="0" empty_lines="0"/>
+        <count timestamp="1582982611" is_refactor="0" all_lines="8791" filled_lines="0" empty_lines="0"/>
+        <count timestamp="1583069011" is_refactor="0" all_lines="8065" filled_lines="0" empty_lines="0"/>
+        <count timestamp="1583155411" is_refactor="0" all_lines="8554" filled_lines="0" empty_lines="0"/>
+        <count timestamp="1583241811" is_refactor="0" all_lines="7607" filled_lines="0" empty_lines="0"/>
+        <count timestamp="1583328211" is_refactor="0" all_lines="7585" filled_lines="0" empty_lines="0"/>
+        <count timestamp="1583414611" is_refactor="0" all_lines="9880" filled_lines="0" empty_lines="0"/>
+        <count timestamp="1583501011" is_refactor="0" all_lines="9019" filled_lines="0" empty_lines="0"/>
+        <count timestamp="1584700068" is_refactor="0" all_lines="3706" filled_lines="2952" empty_lines="754"/>
+        <count timestamp="1584781507" is_refactor="0" all_lines="3733" filled_lines="2974" empty_lines="759"/>
+        <count timestamp="1584952852" is_refactor="0" all_lines="3747" filled_lines="2986" empty_lines="761"/>
+        <count timestamp="1585306076" is_refactor="0" all_lines="5564" filled_lines="4110" empty_lines="1454"/>
+    </counts>
+</project>

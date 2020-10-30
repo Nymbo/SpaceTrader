@@ -1,5 +1,5 @@
 from mathutils import *
-import variables
+import globvars
 
 class Scene:
     def __init__(self):
@@ -16,16 +16,15 @@ class Scene:
         else:
             self.sprites.remove(sprite)
 
-    def update(self):
+    def update(self, clock):
         self.iterating = True
         for sprite in self.sprites:
-            sprite.update()
+            sprite.update(clock)
         self.iterating = False
 
         for marked in self.marked_for_removal:
             self.sprites.remove(marked)
-
-        del self.marked_for_removal[:]
+        self.marked_for_removal.clear()
             
 
 class Viewport:
@@ -46,5 +45,5 @@ class Viewport:
 
 
     def draw(self):
-        for sprite in variables.scene.sprites:
+        for sprite in globvars.scene.sprites:
             sprite.draw()
