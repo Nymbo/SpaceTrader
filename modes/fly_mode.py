@@ -31,9 +31,12 @@ class FlyMode(Mode):
                     globvars.player.rotating_right = False
                     globvars.dock = self.nearby_dock
                     setMode(globvars.dock_mode)
-            if event.key == 9:  # Tab key
+            if event.key == 9:  # Tab key to view the carried cargos.
                 self.tab_pressed = True
                 self.displayCargo()
+            if event.key == 13: # Enter for entering the shipyard.
+                if self.nearby_shipyard != None:
+                    setMode(globvars.shipyard_mode)
 
         elif event.type == KEYUP:
             if event.key == 275:
@@ -65,9 +68,14 @@ class FlyMode(Mode):
         # Nearby dock contact detection:
         self.nearby_dock = None
         for dock in globvars.docks:
-            if dock.position.distance(globvars.player.position) < 10:
+            if dock.position.distance(globvars.player.position) < 20:
                 self.nearby_dock = dock
                 break
+
+        # Nearby shipyard contact detection:
+        self.nearby_shipyard = None
+        if globvars.shipyard.position.distance(globvars.player.position) < 20:
+            self.nearby_shipyard = globvars.shipyard
 
         # Asteroid collision detection:
         for asteroid in globvars.asteroids:
@@ -76,7 +84,10 @@ class FlyMode(Mode):
                 collision_sound.play()
                 globvars.player.setSpeed(2)
 
+        if self.tab_pressed:
+            globvars.cargo_panel.update()
+
         self.fly_hud.update()
 
     def draw(self):
-        self.fly_hud.draw(self.nearby_dock)
+        self.fly_hud.draw(self.nearby_dock, self.nearby_shipyard)
