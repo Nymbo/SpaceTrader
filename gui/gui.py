@@ -1,5 +1,6 @@
 import pygame
 from pygame.locals import *
+from pygame.mixer import *
 
 import globvars
 from mathutils import *
@@ -9,7 +10,7 @@ class Gui:
     def __init__(self):
         self.widgets = []
         self.hover_widget = None
-    
+
     def addWidget(self, widget):
         if not widget in self.widgets:
             self.widgets.append(widget)
@@ -51,12 +52,21 @@ class Gui:
 class Widget:
 
     def __init__(self):
+        self.name = None
         self.position = Vector2(0,0)
         self.size     = Vector2(0,0)
         self.listeners = []
+        self.data = None  # User data to be used elsewhere.
+        self.visible = True
         
     def draw(self):
         pass
+
+    def setName(self, name):
+        self.name = name
+
+    def getName(self):
+        return self.name
 
     def addListener(self, listener):
         self.listeners.append(listener)
@@ -138,6 +148,7 @@ class Text(Widget):
         self.size.y = self.surf.get_height()
 
     def draw(self):
+        if not self.visible: return
         globvars.surface.blit(self.surf, (self.position.x, self.position.y))
 
 
@@ -146,6 +157,7 @@ class Panel(Widget):
         Widget.__init__(self)
 
     def draw(self):
+        if not self.visible: return
         rect = pygame.Rect(self.position.x, self.position.y, self.size.x, self.size.y)
         pygame.draw.rect(globvars.surface, (0, 0, 0), rect)
 
@@ -173,6 +185,7 @@ class Button(Widget):
         self.size.y = image.get_height()
     
     def draw(self):
+        if not self.visible: return
         globvars.surface.blit(self.image, (self.position.x, self.position.y))
 
         r, g, b = 70,70,70
@@ -189,6 +202,10 @@ class Button(Widget):
         frame_right = pygame.Rect(self.position.x + self.size.x - 1, self.position.y, 1, self.size.y)
         pygame.draw.rect(globvars.surface, (r, g, b), frame_right)
 
+    def onMouseUp(self):
+        Widget.onMouseUp(self)
+        click = Sound("assets/sounds/click.ogg")
+        click.play()
 
 class CreditsGauge(Text):
 

@@ -20,7 +20,7 @@ class FlyHud:
         globvars.cargo_panel.update()
 
 
-    def draw(self, nearby_dock):
+    def draw(self, nearby_dock, nearby_shipyard):
         # Draw the navigation circle around the screen:
         pygame.draw.circle(globvars.surface, (200, 200, 200), (400, 400), 350, 2)
 
@@ -30,6 +30,10 @@ class FlyHud:
         font = pygame.font.Font("assets/gui/LCD14.ttf", 15)
         if nearby_dock != None:
             txt = font.render("Press \"D\" to enter " + nearby_dock.name + " spacedock.", 1, (255, 255, 255))
+            globvars.surface.blit(txt, (220, 0))
+
+        if nearby_shipyard != None:
+            txt = font.render("Press \"ENTER\" to enter the shipyard.", 1, (255, 255, 255))
             globvars.surface.blit(txt, (220, 0))
 
         asteroids = globvars.asteroids

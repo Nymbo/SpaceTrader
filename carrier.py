@@ -1,35 +1,50 @@
 from pygame.mixer import Sound
-from sprite import *
+
+from cargo import createCargoArray
+from view.sprite import *
 
 class Carrier(Sprite):
 
-    def __init__(self):
+    def __init__(self, capacity = 500):
         Sprite.__init__(self, None)
+        self.capacity = capacity
+        self.cargos = createCargoArray()
         self.setRotation(0)
         self.setSpeed(0)
+        self.accelerating = False
+        self.decelerating = False
+        self.rotating_left  = False
+        self.rotating_right = False
         self.thrusters_sound = Sound("assets/sounds/thrusters.ogg")
-        self.setAccelerating(False)
-        self.setDecelerating(False)
-        self.setRotatingLeft(False)
-        self.setRotatingRight(False)
 
 
-    def setRotation(self, rot):
-        self.rotation = rot
+    # Set rotation in degrees, where 0 is heading up:
+    def setRotation(self, rotation):
+        self.image          = self.getRotationHullImage(rotation)
+        self.rockets_image  = self.getRotationThrustersImage(rotation)
+        self.rotation = rotation
 
+
+    def getRotationHullImage(self, rot):
         path = str(rot % 360)
         path = path.zfill(4)
-        path = "assets/carrier/hull/" + path + ".png"
-        
-        self.image = assets.loadImage(path)
+        path = "assets/carrier_big/hull/" + path + ".png"
+        image = assets.loadImage(path)
+        return image
 
-        thruster_path = str(self.rotation % 360)
+    def getRotationThrustersImage(self, rot):
+        thruster_path = str(rot % 360)
         thruster_path = thruster_path.zfill(4)
-        thruster_path = "assets/carrier/thrusters/" + thruster_path + ".png"
+        thruster_path = "assets/carrier_big/thrusters/" + thruster_path + ".png"
         thruster_image = assets.loadImage(thruster_path)
+        return thruster_image
 
-        self.rockets_image = thruster_image
-
+    def getImages(self):
+        images = []
+        for rot in range(0, 360):
+            image = self.getRotationHullImage(rot)
+            images.append(image)
+        return images
 
     def draw(self):
         Sprite.draw(self)
@@ -101,3 +116,113 @@ class Carrier(Sprite):
         fwd_vec *= self.speed
 
         self.position += fwd_vec
+
+
+    def getDescription(self):
+        return ""
+
+    def getPrice(self):
+        return 0
+
+    def clone(self):
+        pass
+
+    def getType(self):
+        return ""
+
+class SmallCarrier(Carrier):
+
+    def __init__(self):
+        Carrier.__init__(self, 300)
+
+    def getRotationHullImage(self, rot):
+        path = str(rot % 360)
+        path = path.zfill(4)
+        path = "assets/carrier_small/hull/" + path + ".png"
+        image = assets.loadImage(path)
+        return image
+
+    def getRotationThrustersImage(self, rot):
+        thruster_path = str(rot % 360)
+        thruster_path = thruster_path.zfill(4)
+        thruster_path = "assets/carrier_small/thrusters/" + thruster_path + ".png"
+        thruster_image = assets.loadImage(thruster_path)
+        return thruster_image
+
+
+    def getDescription(self):
+        return "Small carrier"
+
+    def getPrice(self):
+        return 20000
+
+    def clone(self):
+        return SmallCarrier()
+
+    def getType(self):
+        return "Small carrier"
+
+class MediumCarrier(Carrier):
+
+    def __init__(self):
+        Carrier.__init__(self, 500)
+
+    def getRotationHullImage(self, rot):
+        path = str(rot % 360)
+        path = path.zfill(4)
+        path = "assets/carrier_medium/hull/" + path + ".png"
+        image = assets.loadImage(path)
+        return image
+
+    def getRotationThrustersImage(self, rot):
+        thruster_path = str(rot % 360)
+        thruster_path = thruster_path.zfill(4)
+        thruster_path = "assets/carrier_medium/thrusters/" + thruster_path + ".png"
+        thruster_image = assets.loadImage(thruster_path)
+        return thruster_image
+
+    def getDescription(self):
+        return "Medium carrier"
+
+    def getPrice(self):
+        return 30000
+
+    def clone(self):
+        return MediumCarrier()
+
+
+    def getType(self):
+        return "Medium carrier"
+
+
+class BigCarrier(Carrier):
+
+    def __init__(self):
+        Carrier.__init__(self, 800)
+
+    def getRotationHullImage(self, rot):
+        path = str(rot % 360)
+        path = path.zfill(4)
+        path = "assets/carrier_big/hull/" + path + ".png"
+        image = assets.loadImage(path)
+        return image
+
+    def getRotationThrustersImage(self, rot):
+        thruster_path = str(rot % 360)
+        thruster_path = thruster_path.zfill(4)
+        thruster_path = "assets/carrier_big/thrusters/" + thruster_path + ".png"
+        thruster_image = assets.loadImage(thruster_path)
+        return thruster_image
+
+
+    def getDescription(self):
+        return "Heavy carrier"
+
+    def getPrice(self):
+        return 50000
+
+    def clone(self):
+        return BigCarrier()
+
+    def getType(self):
+        return "Big carrier"

@@ -30,7 +30,7 @@ class CargoPanel(MouseListener):
         # Create rows for the panel:
         self.rows = []
         for cargo_name in globvars.cargos:
-            cargo = globvars.cargos[cargo_name]
+            cargo = globvars.player.cargos[cargo_name]
             row = CargoRow(cargo)
             row.buy_button.addListener(self)
             row.sell_button.addListener(self)
@@ -142,26 +142,32 @@ class CargoPanel(MouseListener):
 
     def update(self):
         dock = self.dock
-        if dock == None: return
 
         for row in self.rows:
-            dock_cargo = dock.cargos[row.cargo.name]
-            row.available_text.setText(str(dock_cargo.amount))
+            if dock != None:
+                dock_cargo = dock.cargos[row.cargo.name]
+                row.available_text.setText(str(dock_cargo.amount))
 
-            player_cargo = globvars.cargos[row.cargo.name]
+            player_cargo = globvars.player.cargos[row.cargo.name]
             row.carried_text.setText(str(player_cargo.amount))
 
 
     def onMouseDown(self, widget):
         for row in self.rows:
             dock_cargo = self.dock.cargos[row.cargo.name]
-            player_cargo = globvars.cargos[row.cargo.name]
+            player_cargo = globvars.player.cargos[row.cargo.name]
 
             if widget == row.buy_button:
-                target_player_cargo_amount = player_cargo.amount + 50
+                player_cargo_load = 0
+                for cargo_name in globvars.player.cargos:
+                    cargo = globvars.player.cargos[cargo_name]
+                    player_cargo_load += cargo.amount
+                target_player_cargo_load = player_cargo_load + 50
+
+                carrier_capacity = globvars.player.capacity;
                 total_price = 50 * dock_cargo.price
                 credits = globvars.credits
-                if dock_cargo.amount > 50 and target_player_cargo_amount <= player_cargo.capacity and total_price <= credits:
+                if dock_cargo.amount > 50 and target_player_cargo_load <= carrier_capacity and total_price <= credits:
                     dock_cargo.amount -= 50
                     player_cargo.amount += 50
                     globvars.credits -= total_price

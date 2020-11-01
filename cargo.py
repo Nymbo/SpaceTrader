@@ -16,45 +16,17 @@ class Cargo:
         self.price  = price
         self.capacity = capacity
 
-        if name == CARGO_1_NAME: img_path = "assets/cargos/litium.png"
-        if name == CARGO_2_NAME: img_path = "assets/cargos/litium.png"
-        if name == CARGO_3_NAME: img_path = "assets/cargos/litium.png"
-        if name == CARGO_4_NAME: img_path = "assets/cargos/litium.png"
-        if name == CARGO_5_NAME: img_path = "assets/cargos/litium.png"
-        if name == CARGO_6_NAME: img_path = "assets/cargos/litium.png"
-        if name == CARGO_7_NAME: img_path = "assets/cargos/litium.png"
-        if name == CARGO_8_NAME: img_path = "assets/cargos/litium.png"
-        self.icon = assets.loadImage(img_path)
+        icon_path = "assets/cargos/" + name + ".png"
+        self.icon = assets.loadImage(icon_path)
 
-
-
-class CargoProducer:
-
-    def __init__(self, cargo_name, rate):
-        self.cargo_name = cargo_name
-        self.rate = rate
-
-    # Update the producer - return true if cargo was produced.
-    def update(self):
-        dock_cargo = self.dock.cargos[self.cargo_name]
-        if dock_cargo.amount <= dock_cargo.capacity - self.rate:
-            self.dock.cargos[self.cargo_name].amount += self.rate
-            return True
-        else:
-            return False
-
-
-class CargoConsumer:
-
-    def __init__(self, cargo_name, rate):
-        self.cargo_name = cargo_name
-        self.rate = rate
-
-    # Update the consumer - return true if cargo was consumed
-    def update(self):
-        if self.dock.cargos[self.cargo_name].amount >= 0 + self.rate:
-            self.dock.cargos[self.cargo_name].amount -= self.rate
-            return True
-        else:
-            return False
-
+def createCargoArray():
+    cargos = {}
+    cargos[CARGO_1_NAME] = Cargo(CARGO_1_NAME, 0, 0)
+    cargos[CARGO_2_NAME] = Cargo(CARGO_2_NAME, 0, 0)
+    cargos[CARGO_3_NAME] = Cargo(CARGO_3_NAME, 0, 0)
+    cargos[CARGO_4_NAME] = Cargo(CARGO_4_NAME, 0, 0)
+    cargos[CARGO_5_NAME] = Cargo(CARGO_5_NAME, 0, 0)
+    cargos[CARGO_6_NAME] = Cargo(CARGO_6_NAME, 0, 0)
+    cargos[CARGO_7_NAME] = Cargo(CARGO_7_NAME, 0, 0)
+    cargos[CARGO_8_NAME] = Cargo(CARGO_8_NAME, 0, 0)
+    return cargos
